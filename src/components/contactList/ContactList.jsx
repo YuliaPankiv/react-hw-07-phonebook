@@ -1,24 +1,32 @@
 import { ItemContact } from 'components/Item/Item';
 import { Item, List } from './ContactList.styled';
-import { selectFilter } from '../../redux/selectors';
-import { useSelector } from 'react-redux';
+import { filterContacts } from '../../redux/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchContacts } from '../../redux/options';
 
 export const ContactList = () => {
-  const contacts = useSelector(state => state.contacts.contact);
-  const filter = useSelector(selectFilter).toLowerCase().trim();
-  const filteredContacts = contacts.filter(item =>
-    item.name.toLowerCase().includes(filter)
-  );
+  const filteredContacts = useSelector(filterContacts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
   return (
     <>
-      <List>
-        {contacts &&
-          filteredContacts.map(currentContact => (
-            <Item key={currentContact.id}>
-              <ItemContact currentContact={currentContact} />
-            </Item>
-          ))}
-      </List>
+      {filteredContacts && (
+        <List>
+          {filteredContacts &&
+            filteredContacts.map(currentContact => {
+              return (
+                <Item key={currentContact.id}>
+                  <ItemContact currentContact={currentContact} />
+                </Item>
+              );
+            })}
+        </List>
+      )}
     </>
   );
 };

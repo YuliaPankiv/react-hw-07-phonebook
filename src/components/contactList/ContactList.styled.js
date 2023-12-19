@@ -15,20 +15,24 @@ export const Item = styled.li`
   background-color: #f9f9f9;
   border-radius: 4px;
   align-items: center;
-  &:hover{
+  &:hover {
     background-color: #449cf43d;
-
   }
 `;
 
 export const Delete = styled.button`
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+
   margin-left: 40px;
   border-color: #ccc;
   border-radius: 4px;
-font-size: 22px;
-cursor: pointer;
- &:hover {
+  font-size: 22px;
+  cursor: pointer;
+  &:hover {
     background-color: #449cf4;
     border-color: #449cf4;
     color: white;
+  }
 `;

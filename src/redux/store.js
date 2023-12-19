@@ -10,14 +10,14 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import contactsReducer from './contactSlice';
 import { filterReducer } from './filterSlice';
+import { contactReducer } from './contactSlice';
 const persistConfig = {
   key: 'contacts',
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, contactsReducer);
+const persistedReducer = persistReducer(persistConfig, contactReducer);
 
 export const store = configureStore({
   reducer: {
