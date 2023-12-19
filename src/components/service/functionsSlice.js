@@ -25,3 +25,9 @@ export const handleRejected = (state, { payload }) => {
   state.contacts.isLoading = false;
   state.contacts.error = payload;
 };
+// const handleEditFulfilled = (state, { payload }) => {
+// state.contacts.items = state.contacts.items.find(
+//   //   ({ id }) => id === payload.id
+//   // );
+// })
+// };

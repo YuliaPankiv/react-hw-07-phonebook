@@ -10,13 +10,6 @@ import {
   typeAction,
 } from 'components/service/functionsSlice';
 
-// const handleEditFulfilled = (state, { payload }) => {
-// state.contacts.items = state.contacts.items.find(
-//   //   ({ id }) => id === payload.id
-//   // );
-// })
-// };
-
 const contactSlice = createSlice({
   name: 'contacts',
   initialState: {
