@@ -6,7 +6,7 @@ export const BtnEdit = styled.button`
 
   font-size: 20px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.dark};
+  /* color: ${({ theme }) => theme.colors.dark}; */
 
   position: absolute;
   top: 0;

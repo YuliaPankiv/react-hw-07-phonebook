@@ -8,7 +8,6 @@ import { TodoWrapper } from './Item.styled';
 // import { RiEdit2Line } from 'react-icons/ri';
 
 export const ItemContact = ({ currentContact: { id, name, number } }) => {
-  console.log(id, name, number);
   const dispatch = useDispatch();
 
   return (

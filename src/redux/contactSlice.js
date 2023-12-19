@@ -1,10 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { addContact, deleteContact, fetchContacts } from './options';
 import {
-  addContact,
-  deleteContact,
-  editContact,
-  fetchContacts,
-} from './options';
+  handleAddContactFulfilled,
+  handleDeleteContactsFulfilled,
+  handleFetchContactsFulfilled,
+  handleFulfilled,
+  handlePending,
+  handleRejected,
+  typeAction,
+} from 'components/service/functionsSlice';
+
+// const handleEditFulfilled = (state, { payload }) => {
+// state.contacts.items = state.contacts.items.find(
+//   //   ({ id }) => id === payload.id
+//   // );
+// })
+// };
 
 const contactSlice = createSlice({
   name: 'contacts',
@@ -17,48 +28,12 @@ const contactSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
-        console.log(payload);
-        state.contacts.items = payload;
-      })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
-        state.contacts.items.push(payload);
-      })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.contacts.items = state.contacts.items.filter(
-          ({ id }) => id !== payload.id
-        );
-      })
-      .addCase(editContact.fulfilled, (state, { payload }) => {
-        //має прийти обєкт в якому потібно переписати наме
-        console.log(payload);
-        // state.contacts.items = state.contacts.items.find(
-        //   ({ id }) => id === payload.id
-        // );
-      })
-      .addMatcher(
-        action =>
-          action.type.startsWith('contacts') &&
-          action.type.endsWith('/pending'),
-        (state, { payload }) => {
-          state.contacts.isLoading = false;
-          state.contacts.error = payload;
-        }
-      )
-      .addMatcher(
-        action => action.type.endsWith('/fulfilled'),
-        state => {
-          state.contacts.isLoading = true;
-          state.contacts.error = null;
-        }
-      )
-      .addMatcher(
-        action => action.type.endsWith('/rejected'),
-        (state, { payload }) => {
-          state.contacts.isLoading = false;
-          state.contacts.error = payload;
-        }
-      );
+      .addCase(fetchContacts.fulfilled, handleFetchContactsFulfilled)
+      .addCase(addContact.fulfilled, handleAddContactFulfilled)
+      .addCase(deleteContact.fulfilled, handleDeleteContactsFulfilled)
+      .addMatcher(isAnyOf(...typeAction('pending')), handlePending)
+      .addMatcher(isAnyOf(...typeAction('fulfilled')), handleFulfilled)
+      .addMatcher(isAnyOf(...typeAction('rejected')), handleRejected);
   },
 });
 
